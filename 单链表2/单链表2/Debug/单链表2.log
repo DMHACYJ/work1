@@ -1,0 +1,22 @@
+﻿  SingLeList.c
+f:\代码\单链表2\单链表2\singlelist.c(123): warning C4098: “SingLeListRemoveAll”:“void”函数返回值
+f:\代码\单链表2\单链表2\singlelist.c(128): warning C4047: “==”:“datatype”与“SingLeListNode *”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(155): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(155): warning C4024: “SingLeListInit”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(156): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(156): warning C4024: “SingLeListPushBack”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(157): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(157): warning C4024: “SingLeListPushBack”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(158): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(158): warning C4024: “SingLeListPushBack”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(159): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(159): warning C4024: “SingLeListPushBack”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(160): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(160): warning C4024: “SingLeListPushFront”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(162): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(162): warning C4024: “SingLeListPopBack”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(163): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(163): warning C4024: “SingLeListPopFront”: 形参和实参 1 的类型不同
+f:\代码\单链表2\单链表2\singlelist.c(164): warning C4047: “函数”:“SingLeList *”与“SingLeList **”的间接级别不同
+f:\代码\单链表2\单链表2\singlelist.c(164): warning C4024: “SingLeListPrint”: 形参和实参 1 的类型不同
+  单链表2.vcxproj -> F:\代码\单链表2\Debug\单链表2.exe
