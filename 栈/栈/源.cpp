@@ -54,16 +54,90 @@ size_t StackSize(Stack* st)
 	return st->_top;
 }
 
+void StackDestroy(Stack* sl) {
+	assert(sl);
+	if (sl->_a)
+	{
+		free(sl->_a);
+		sl->_a = NULL;
+		sl->_capacity = sl->_top = 0;
+	}
+}
+//最小栈
+MinStack* minStackCreate() {
+	MinStack*  S;
+	S = (MinStack*)malloc(sizeof(MinStack));
+	StackInit(&S->normStack);
+	StackInit(&S->minStack);
+	return S;
+}
+void minStackPush(MinStack* obj, DataType x) {
+	StackPush(&obj->normStack, x);
+	if (!StackSize(&obj->normStack))  StackPush(&obj->minStack, x);
+	else if (x <= StackTop(&obj->minStack)) StackPush(&obj->minStack, x);
+}
+void minStackPop(MinStack* obj) {
+	if (!StackEmpty(&obj->normStack)) {
+		if(StackTop(&obj->minStack)==StackTop(&obj->normStack))
+			StackPop(&obj->minStack);
+		StackPop(&obj->normStack);
+	}
+}
+int minStackTop(MinStack* obj) {
+	if (!StackEmpty(&obj->normStack)) return StackTop(&obj->normStack);
+	return 0;
+}
+int minStackGetMin(MinStack* obj) {
+	if (!StackEmpty(&obj->minStack)) return StackTop(&obj->minStack);
+	return 0;
+}
+void  minStackFree(MinStack* obj) {
+	StackDestroy(&obj->normStack);
+	StackDestroy(&obj->minStack);
+	free(obj);
+}
+//两个栈实现一个队列
+void myQueueCreate(MyQueue *mq ) {
+	StackInit(&mq->_pushSt);
+	StackInit(&mq->_popSt);
+}
+void myQueuePush(MyQueue* obk, int x) {
+	StackPush(&obk->_pushSt, x);
+}
+int myQueuePop(MyQueue* obk) {
+	while (!StackEmpty(&obk->_pushSt)) {
+		StackPush(&obk->_popSt, StackTop(&obk->_pushSt));
+		StackPop(&obk->_pushSt);
+	}
+	int top = StackTop(&obk->_popSt);
+	StackPop(&obk->_popSt);
+	return top;
+}
+bool myQueueEmpty(MyQueue* obk) {
+	return StackEmpty(&obk->_popSt) && StackEmpty(&obk->_pushSt);
+}
+void myQueuePeek(MyQueue* obk) {
+	while (!myQueueEmpty(obk)) {
+		int top = myQueuePop(obk);
+		printf("%d ", top);
+	}
+}
+void myQueueDestroy(MyQueue* obk) {
+	StackDestroy(&obk->_popSt);
+	StackDestroy(&obk->_pushSt);
+	free(obk);
+}
+
 void test()
 {
-	Stack s;
-	StackInit(&s);
-	StackPush(&s, 1);
-	StackPush(&s, 2);
-	StackPush(&s, 3);
-	StackPush(&s, 4);
-	StackPrint(&s);
-	StackEmpty(&s);
+	MyQueue mq;
+	myQueueCreate(&mq);
+	myQueuePush(&mq, 1);
+	myQueuePush(&mq, 2);
+	myQueuePush(&mq, 3);
+	myQueuePush(&mq, 4);
+	myQueuePeek(&mq);
+	myQueueDestroy(&mq);
 }
 int main()
 {
