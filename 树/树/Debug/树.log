@@ -1,0 +1,4 @@
+﻿  源.cpp
+f:\代码\树\树\源.cpp(61): error C4716: “HeapEmpty”: 必须返回一个值
+f:\代码\树\树\源.cpp(58): error C4716: “HeapSize”: 必须返回一个值
+f:\代码\树\树\源.cpp(55): error C4716: “HeapTop”: 必须返回一个值
