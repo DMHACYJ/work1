@@ -1,0 +1,6 @@
+﻿  源.cpp
+f:\代码\二叉树链式\二叉树链式\源.cpp(21): error C4716: “BinaryTreeSize”: 必须返回一个值
+f:\代码\二叉树链式\二叉树链式\源.cpp(24): error C4716: “BinaryTreeLeafSize”: 必须返回一个值
+f:\代码\二叉树链式\二叉树链式\源.cpp(49): error C4716: “BinaryTreeComplete”: 必须返回一个值
+f:\代码\二叉树链式\二叉树链式\源.cpp(28): error C4716: “BinaryTreeFind”: 必须返回一个值
+f:\代码\二叉树链式\二叉树链式\源.cpp(27): error C4716: “BinaryTreeLevelKSize”: 必须返回一个值
