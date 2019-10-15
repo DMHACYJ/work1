@@ -1,8 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 #include<assert.h>
-
+#include<stack>
+using namespace std;
 /*插入排序*/
 //时间：O(N^2)
 //空间：O(1)
@@ -153,6 +155,107 @@ void BubbleSort(int* a, int n)
 	}
 }
 
+//快速排序
+//时间复杂度：N * logN
+//空间复杂度：空间可以复用，最大的递归调用链 ---> logN
+int getMid(int* a, int left, int right) {
+	int mid = left + (right - left) / 2;
+	if (a[mid] > a[left]) {
+		if (a[mid] < a[right]) return mid;
+		else {
+			if (a[left] > a[right]) return left;
+			else return right;
+		}
+	}
+	else {
+		if (a[left] < a[right]) return left;
+		else {
+			if (a[mid] > a[right]) return mid;
+			else return right;
+		}
+	}
+}
+int PartSort(int* a, int left, int right) {
+	int mid = getMid(a, left, right);
+	int start = left;
+	Swap(&a[start], &a[mid]);
+	int key = a[start];
+	while (left < right) {
+		while (left < right && a[right] >= key)  --right;
+		while (left < right && a[right] <= key)  ++left;
+		Swap(&a[left], &a[right]);
+	}
+	Swap(&a[start], &a[left]);
+	return left;
+}
+void QuickSort(int* a, int left, int right) {
+	if (left >= right) return;
+	else if (left - right + 1 < 5) {
+		InsertSort(a + left, right - left + 1);
+	} 
+	else {
+		int mid = PartSort(a, left, right);
+		QuickSort(a, left, mid - 1);
+		QuickSort(a, mid + 1, right);
+	}
+}
+
+int PartSort2(int* a, int left, int right) {
+	int key = a[left];
+	while (left < right) {
+		while (left < right && a[right] >= key)  --right;
+		a[left] = a[right];
+		while (left < right && a[right] <= key)  ++left;
+		a[right] = a[left];
+	}
+	a[left] = key;
+	return left;
+}
+
+int PartSort3(int* a, int left, int right) {
+	int mid = getMid(a, left, right);
+	Swap(&a[mid], &a[left]);
+	//最后一个小于key的位置
+	int prev = left;
+	//下一个小于key的位置
+	int cur = left + 1;
+	int key = a[left];
+	//如果下一个小于key的位置于上一个小于key的位置不连续
+	//说明中间有大于key的值，进行交换，大--->向后移动，小<---向前移动
+	while (cur < right) {
+		if (a[cur] < key && ++prev != cur) Swap(&a[prev], &a[cur]);
+		++cur;
+	}
+	Swap(&a[left], &a[prev]);
+	return left;
+}
+
+//非递归
+void QuickSortNoR(int* a, int left, int right) {
+	stack<int> st;
+	if (left < right) {
+		st.push(right);
+		st.push(left);
+	}
+	while (st.empty() == 0) {
+		int begin = st.top();
+		st.pop();
+		int end = st.top();
+		st.pop();
+		//划分当前区间
+		int mid = PartSort3(a, begin, end);
+		//划分左右子区间
+		if (begin < mid - 1) {
+			st.push(mid - 1);
+			st.push(begin);
+		}
+		if (mid + 1 < end) {
+			st.push(end);
+			st.push(mid + 1);
+		}
+	}
+}
+
 void ArrayPrint(int* a, int n)
 {
 	for (int i = 0; i < n; i++)
@@ -165,21 +268,24 @@ void ArrayPrint(int* a, int n)
 void testSort()
 {
 	int a[] = { 10, 2, 3, 8, 9, 7, 6, 1, 5, 4 };
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
-	InsertSort(&a, sizeof(a) / sizeof(int));
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
-	ShellSort(&a, sizeof(a) / sizeof(int));
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
-	SelectSort(&a, sizeof(a) / sizeof(int));
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
-	HeapSort(&a, sizeof(a) / sizeof(int));
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
-	BubbleSort(&a, sizeof(a) / sizeof(int));
-	ArrayPrint(&a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	InsertSort(a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	ShellSort(a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	SelectSort(a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	HeapSort(a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	BubbleSort(a, sizeof(a) / sizeof(int));
+	ArrayPrint(a, sizeof(a) / sizeof(int));
+	QuickSort(a, 0, sizeof(a) / sizeof(int) - 1);
+	ArrayPrint(a, sizeof(a) / sizeof(int));
 }
 
 int main()
 {
 	testSort();
+	system("pause");
 	return 0;
 }
