@@ -19,21 +19,35 @@ public:
 	/*Date() {
 		cout << "Date()" << endl;
 	}*/
-	Date(int year=2000, int month=1, int day=1) {//全缺省：默认构造
-		this->_year = year;
+
+	//默认构造
+	//成员变量定义的地方：初始化列表
+	//引用需要在成员变量定义的时候初始化，所以引用必须在初始化列表进行初始化
+	//const遵从相同的初始化
+	Date(int year=2000, int month=1, int day=1, int hour = 1) //全缺省：默认构造
+		//初始化，初始化列表(相当于赋值，只不过初始化只能一次，赋值可以很多次)
+		//全部初始化了以后不用再赋值
+		: _year(year)
+		, _month(month)
+		, _day(day)
+		, _hour(hour)
+	{//赋值
+		/*this->_year = year;
 		this->_month = month;
-		_day = day;
+		_day = day;*/
 	}
+
 	//构造函数重载
-	Date(int year = 2000, int month = 1) {
-		this->_year = year;
-		this->_month = month;
-		_day = 1;
-	}
-	//const& :可以接受任何类型的Date对象，临时对象也可以接收
-	//        & :只能接收非临时的Date对象
-	//参数类型如果为值会无限递归
+	//Date(int year = 2000, int month = 1) {
+	//	this->_year = year;
+	//	this->_month = month;
+	//	_day = 1;
+	//}
+	////const& :可以接受任何类型的Date对象，临时对象也可以接收
+	////        & :只能接收非临时的Date对象
+	////参数类型如果为值会无限递归
 	Date(const Date& d)//拷贝构造，传入的参数必须是引用类型，如果传值会无限递归，语法错误
+		: _hour(d._hour)
 	{
 		_year = d._year;
 		_month = d._month;
@@ -50,21 +64,27 @@ public:
 		其他的和普通函数定义相同
 
 	*/
-	bool operator==(const Date& d2)//第一个参数是this，编译器隐式传递
+	bool Equal(const Date& d2)//第一个参数是this，编译器隐式传递
 	{
 		return _year == d2._year
 			&& _month == d2._month
 			&& _day == d2._day;
 	}
-	Date& operator=(const Date& d)
+	
+	//赋值运算符重载函数：用一个对象改变另一个已经存在的内容
+	//返回值：支持连续赋值；返回引用提高赋值效率 
+	Date& operator = (const Date& d)
 	{
+		//当前对象的地址和用来赋值对象的地址比较
+		//判断是否给自己肤质
 		if (this != &d)
 		{
 			_year = d._year;
 			_month = d._month;
 			_day = d._day;
 		}
-	}
+		return* this;//返回当前被赋值过的对象
+	}
 
 	/*
 		this指针：类类型 * const
@@ -79,13 +99,27 @@ public:
 		_day = day;
 	}
 
+	//权限（读写）可以缩小，不能扩大
+	void Display() const {
+		//Equal(Date());只读的成员函数不能调用可读可写的（权限不能放大）
+		cout << this->_year << "-" << this->_month << "-" << this->_day << endl;
+	}
 	void Display() {
 		cout <<this-> _year << "-" << this->_month << "-" << this->_day << endl;
 	}
+
 	//析构函数完成对象资源清理，整个生命周期值调用一次：销毁对象之前，本身不销毁对象
 	//析构函数会自动调用自定义类型的析构函数
 	~Date() {
 		cout << "~Date()" << endl;
+	}
+
+	//取地址及const取地址重载
+	Date* operator &() {
+		return this;
+	}
+	const Date* operator &() const {
+		return this;
 	}
 private:
 	//编译器默认生成的构造函数：
@@ -96,7 +130,10 @@ private:
 	int _year;
 	int _month;
 	int _day;
-	A _a;
+	//引用，const, 无默认构造的自定义成员都要初始化，否则警告
+	int& _hour;
+//	A _a;
+//	String s;
 };
 
 class String {
