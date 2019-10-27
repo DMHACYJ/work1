@@ -18,6 +18,9 @@
     <ClInclude Include="Date.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Date2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">

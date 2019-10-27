@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Date2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
