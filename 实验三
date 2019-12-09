@@ -1,1 +1,70 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
 
+const int ADDRESS_NUM = 30;
+
+class Building {
+public:
+	Building() {}
+	Building(int floors, char* address) {
+		_floors = floors;
+		memcpy(_address, address, ADDRESS_NUM);
+	}
+	
+	void show() {
+		cout << "地址：" << _address << "\t楼号：" << _floors << endl; 
+	}
+	~Building() {
+		delete[] _address;
+	}
+private:
+	int _floors;
+	char _address[ADDRESS_NUM];
+}; 
+
+class Housing: public Building {
+public:
+	Housing() {}
+	Housing(int floors, char* address, int rooms, double area): Building(floors, address) {
+		_rooms = rooms;
+		_area = area;
+	}	
+	void show() {
+		cout << "住宅：" << endl;
+		Building::show();
+		cout << "房号：" << _rooms << "\t面积：" << _area << endl; 
+	}
+private:
+	int _rooms;
+	double _area;
+};
+
+class Office: public Building {
+public:
+	Office() {}
+	Office(int floors, char* address, char* officeName, char* telephone): Building(floors, address) {
+		memcpy(_officeName, officeName, ADDRESS_NUM);
+		memcpy(_telephone, telephone, 20);
+	}	
+	void show() {
+		cout << "办公室：" << endl;
+		Building::show();
+		cout << "名字：" << _officeName << "\t电话：" << _telephone << endl; 
+	}
+	~Office() {
+		delete[] _officeName;
+		delete[] _telephone;
+	}
+private:
+	char _officeName[ADDRESS_NUM];
+	char _telephone[20];
+};
+
+int main() {
+	Housing h(1, "a", 1, 1);
+	h.show();
+	Office o(1, "a", "a", "1");
+	o.show();
+	return 0;
+}
