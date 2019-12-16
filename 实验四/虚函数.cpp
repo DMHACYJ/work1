@@ -5,8 +5,7 @@ using namespace std;
 
 const double PI = cos(-1);
 
-class Circle 
-{ 
+class Circle { 
 public:  
     Circle(double r) {
 		radius = r; 
@@ -20,8 +19,7 @@ public:
 protected: 
 	double radius; 
 }; 
-class Sphere : public Circle 
-{  
+class Sphere : public Circle {  
 public: 
     Sphere(double r) : Circle(r) {
 	} 
@@ -32,8 +30,7 @@ public:
 		return 4.0 * PI * radius * radius * radius / 3.0; 
 	} 
 }; 
-class Column : public Circle 
-{  
+class Column : public Circle {  
 public: 
     Column(double r,double h) : Circle(r) {
 		height = h; 
